@@ -1,6 +1,6 @@
 .env
-.env.prod
 .env.dev
+.env.prod
 data/db/
 node_modules/
 package-lock.json
