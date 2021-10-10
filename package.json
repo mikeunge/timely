@@ -1,0 +1,27 @@
+{
+  "name": "timely",
+  "version": "1.0.0",
+  "description": "Time management made easy.",
+  "main": "",
+  "scripts": {
+    "build": "./scripts/bundle.sh"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mikeunge/timely.git"
+  },
+  "author": "mikeunge",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/mikeunge/timely/issues"
+  },
+  "homepage": "https://github.com/mikeunge/timely#readme",
+  "dependencies": {
+    "autoprefixer": "^10.3.7"
+  },
+  "devDependencies": {
+    "@tailwindcss/jit": "^0.1.18",
+    "postcss": "^8.3.9",
+    "tailwindcss": "^2.2.16"
+  }
+}

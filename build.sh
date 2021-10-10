@@ -1,14 +1,19 @@
-#!/usr/bin/bash
+#!/usr/local/bin/bash
 environment=$1
 if [ -z $environment ]; then
     printf "No arguments provided.\n"
     exit 1
 fi
-
-# check what the user wants to build.
-# if dev (developmnent) or prod (production).
-if [[ $environment == "dev" ]]; then
-    sudo docker-compose -d --env-file .env.dev up
+# check if environment file even exists.
+if ! [ -f .env.$environment ]; then
+	printf "Environment file not found.\n"
+	exit 1
 else
-    sudo docker-compose -d --env-file .env.prod up
+	if [ -f .env ]; then
+		rm .env
+	fi
+	cp .env.$environment .env
 fi
+
+npm run build
+docker-compose -d up

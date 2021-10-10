@@ -1,2 +1,13 @@
+.env
 .env.prod
-data/postgres-data/
+.env.dev
+data/db/
+node_modules/
+package-lock.json
+.DS_Store/
+__pycache__/
+*.py[cod]
+pip-log.txt
+pip-delete-this-directory.txt
+*.log
+*.pot
