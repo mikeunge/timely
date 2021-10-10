@@ -16,7 +16,6 @@ from os import getenv
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
@@ -77,11 +76,11 @@ WSGI_APPLICATION = 'app.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': getenv("POSTGRES_DB"),
-        'USER': getenv("POSTGRES_USER"),
-        'PASSWORD': getenv("POSTGRES_PASSWORD"),
-        'HOST': getenv("POSTGRES_HOST"),
-        'PORT': getenv("POSTGRES_PORT"),
+        'NAME': getenv("DB"),
+        'USER': getenv("DB_USER"),
+        'PASSWORD': getenv("DB_PASSWORD"),
+        'HOST': getenv("DB_HOST"),
+        'PORT': getenv("DB_PORT"),
     }
 }
 

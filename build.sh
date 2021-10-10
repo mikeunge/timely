@@ -1,19 +1,18 @@
 #!/usr/local/bin/bash
-environment=$1
-if [ -z $environment ]; then
-    printf "No arguments provided.\n"
-    exit 1
-fi
+# build the app
+
 # check if environment file even exists.
-if ! [ -f .env.$environment ]; then
-	printf "Environment file not found.\n"
+if ! [ -f .env ]; then
+	printf "Environment file (.env) not found.\n"
 	exit 1
-else
-	if [ -f .env ]; then
-		rm .env
-	fi
-	cp .env.$environment .env
 fi
 
+# build static files
 npm run build
-docker-compose -d up
+
+# build docker image(s)
+if [ "$1" = "dev" ] || [ "$1" = "debug" ]; then
+	docker-compose up
+else
+	docker-compose up --build --detach
+fi
