@@ -3,7 +3,7 @@
 
 # check if environment file even exists.
 if ! [ -f .env ]; then
-	printf "Environment file (.env) not found.\n"
+	printf "Environment file (.env) not found.\nAborting.\n"
 	exit 1
 fi
 
@@ -12,7 +12,7 @@ npm run build
 
 # build docker image(s)
 if [ "$1" = "dev" ] || [ "$1" = "debug" ]; then
-	docker-compose up
+	docker-compose run
 else
 	docker-compose up --build --detach
 fi
