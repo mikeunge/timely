@@ -12,7 +12,7 @@ npm run build
 
 # build docker image(s)
 if [ "$1" = "dev" ] || [ "$1" = "debug" ]; then
-	docker-compose run
+	docker-compose up
 else
 	docker-compose up --build --detach
 fi
