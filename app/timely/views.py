@@ -1,19 +1,26 @@
 from django.shortcuts import  render, redirect
-from django.contrib.auth import login, authenticate
+from django.contrib.auth import login, authenticate, logout
 from django.contrib import messages
 from django.contrib.auth.forms import AuthenticationForm
+from .forms import LoginForm
 
 
 def index(request):
-	return render(request=request, template_name='timely/index.html', context={'page_title': 'Timely - Home'})
+	variables = {
+		'page_title': 'Timely - Home'
+	}
+	return render(request, 'timely/index.html', variables)
 
 
 # TODO: get rid of the messages.info/messages.error
 #		display the messages on the login page
-def login_request(request):
+def login_user(request):
+	if request.user.is_authenticated:
+		redirect('/')
+
+	form = LoginForm()
 	if request.method == 'POST':
-		form = AuthenticationForm(request, data=request.POST)
-		print(form)
+		form = LoginForm(request.POST)
 		if form.is_valid():
 			username = form.cleaned_data.get('username')
 			password = form.cleaned_data.get('password')
@@ -26,5 +33,14 @@ def login_request(request):
 				messages.error(request, 'Invalid username or password.')
 		else:
 			messages.error(request, 'Invalid username or password.')
-	form = AuthenticationForm()
-	return render(request=request, template_name='timely/login.html', context={'page_title': 'Timely - Login', 'login_form':form})
+
+	variables = {
+		'page_title': 'Timely - Login',
+		'form':form
+	}
+	return render(request, 'timely/login.html', variables)
+
+
+def logout_user(request):
+    logout(request)
+    return redirect('/login')
