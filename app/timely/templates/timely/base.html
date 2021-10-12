@@ -1,20 +1,22 @@
+{% load static %}
+
 <!doctype html>
 <html lang="de">
 	<head>
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 
-		<title> Timely </title>
+		<title>{{ page_title }}</title>
 		<meta name="description" content="timely :: track your working hours">
 		<meta name="author" content="@mikeunge">
 
-		<link rel="icon" href="images/favicon.ico">
-		<link rel="apple-touch-icon" href="images/apple-touch-icon.png">
-		<link rel="stylesheet" href="css/styles.css">
+		<link rel="icon" href="{% static 'images/favicon.ico' %}">
+		<link rel="apple-touch-icon" href="{% static 'images/apple-touch-icon.png' %}">
+		<link rel="stylesheet" href="{% static 'css/tailwind.css' %}">
 	</head>
 	<body>
 		{% block content %}
 		{% endblock %}
-		<script src="js/main.js"></script>
+		<script src="{% static 'js/main.js' %}"></script>
 	</body>
 </html>
