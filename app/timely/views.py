@@ -3,8 +3,10 @@ from django.contrib.auth import login, authenticate, logout, update_session_auth
 from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib import messages
 from .forms import LoginForm
+from .decorators import logged_in
 
 
+@logged_in
 def index(request):
 	variables = {
 		'page_title': 'Timely - Home'
@@ -13,9 +15,6 @@ def index(request):
 
 
 def signin(request):
-	if request.user.is_authenticated:
-		redirect('/')
-
 	form = LoginForm()
 	if request.method == 'POST':
 		form = LoginForm(request.POST)
@@ -38,11 +37,13 @@ def signin(request):
 	return render(request, 'timely/accounts/login.html', variables)
 
 
+@logged_in
 def signout(request):
     logout(request)
     return redirect('/accounts/login/')
 
 
+@logged_in
 def change_password(request):
     if request.method == 'POST':
         form = PasswordChangeForm(request.user, request.POST)
