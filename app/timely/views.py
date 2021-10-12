@@ -1,7 +1,7 @@
 from django.shortcuts import  render, redirect
-from django.contrib.auth import login, authenticate, logout
+from django.contrib.auth import login, authenticate, logout, update_session_auth_hash
+from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib import messages
-from django.contrib.auth.forms import AuthenticationForm
 from .forms import LoginForm
 
 
@@ -12,9 +12,7 @@ def index(request):
 	return render(request, 'timely/index.html', variables)
 
 
-# TODO: get rid of the messages.info/messages.error
-#		display the messages on the login page
-def login_user(request):
+def signin(request):
 	if request.user.is_authenticated:
 		redirect('/')
 
@@ -27,20 +25,36 @@ def login_user(request):
 			user = authenticate(username=username, password=password)
 			if user is not None:
 				login(request, user)
-				messages.info(request, f'You are now logged in as {username}.')
 				return redirect('/')
 			else:
-				messages.error(request, 'Invalid username or password.')
+				messages.error(request, "Sorry, we cound't find a user with that username and password. Try it again, or maybe you forgot your password?")
 		else:
-			messages.error(request, 'Invalid username or password.')
+			messages.error(request, 'Hmm... Something went wrong with your form. Please try again, we are trying to get it this time.')
 
 	variables = {
 		'page_title': 'Timely - Login',
 		'form':form
 	}
-	return render(request, 'timely/login.html', variables)
+	return render(request, 'timely/accounts/login.html', variables)
 
 
-def logout_user(request):
+def signout(request):
     logout(request)
-    return redirect('/login')
+    return redirect('/accounts/login/')
+
+
+def change_password(request):
+    if request.method == 'POST':
+        form = PasswordChangeForm(request.user, request.POST)
+        if form.is_valid():
+            user = form.save()
+            update_session_auth_hash(request, user)  # Important!
+            messages.success(request, 'Your password was successfully updated!')
+            return redirect('/')
+        else:
+            messages.error(request, 'Please correct the error below.')
+    else:
+        form = PasswordChangeForm(request.user)
+    return render(request, 'timely/accounts/change_password.html', {
+        'form': form
+    })
