@@ -1,7 +1,7 @@
 {% extends 'timely/base.html' %}
 
+{% load static %}
 {% block content %}      
-
 
 {% if user.is_authenticated %}
 	<meta http-equiv="REFRESH" content="0;url=/">
@@ -18,35 +18,29 @@
 {% endif %}
 
 <div class="flex flex-col items-center justify-center">
-	<div class=" flex justify-center text-3xl mb-12 pt-28">
-		Anmelden
+	<div class="flex justify-center mb-12 pt-28">
+		<img class="flex justify-center fill-current text-purple-500" src="{% static 'images/logo.svg' %}" alt="Anmelden" height="87" width="100" />
 	</div>
-	<form class="w-full max-w-sm my-4" method="POST">
-		{% csrf_token %}
+	<form class="w-full max-w-sm my-4" method="POST"> {% csrf_token %}
 		<div class="flex items-center mb-6">
-			<div class="md:w-1/3">
-				<label class="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4" for="{{ form.username.id_for_label }}">
-					Benutzer
-				</label>
-			</div>
-			<div class="md:w-2/3 w-full">
-				<input class="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500" id="{{ form.username.id_for_label }}" name="username" type="text" value="" required>
+			<div class="w-full">
+				<div class="relative">
+					<i class="absolute z-0 material-icons top-2 left-4">person</i>
+					<input class="bg-gray-200 appearance-none border-2 border-gray-200 h-10 rounded w-full py-2 px-12 text-gray-700 focus:outline-none focus:bg-white focus:border-purple-500" id="{{ form.username.id_for_label }}" name="username" type="text" placeholder="Benutzer" required>
+				</div>
 			</div>
 		</div>
 		<div class="flex items-center mb-6">
-			<div class="md:w-1/3">
-				<label class="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4" for="{{ form.password.id_for_label }}">
-					Passwort
-				</label>
-			</div>
-			<div class="md:w-2/3 w-full">
-				<input class="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500" id="{{ form.password.id_for_label }}" name="password" type="password" placeholder="" required>
+			<div class="w-full">
+				<div class="relative">
+					<i class="absolute z-0 material-icons top-2 left-4">password</i>
+					<input class="bg-gray-200 appearance-none border-2 border-gray-200 h-10 rounded w-full py-2 px-12 text-gray-700 focus:outline-none focus:bg-white focus:border-purple-500" id="{{ form.password.id_for_label }}" name="password" type="password" placeholder="Passwort" required>
+				</div>
 			</div>
 		</div>
-		<div class="flex md:items-center justify-end">
-			<button type="submit" class="shadow bg-purple-500 hover:bg-purple-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded" type="button">
-				Login	
-			</button>
+		<div class="flex md:items-center justify-between">
+			<button type="submit" class="shadow bg-purple-500 hover:bg-purple-600 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-8 rounded" type="button">Anmelden</button>
+			<a class="text-gray-700 hover:text-purple-500" href=""><p>Passwort vergessen?</p></a>
 		</div>
 	</form>
 </div>

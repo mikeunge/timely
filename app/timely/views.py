@@ -14,6 +14,33 @@ def index(request):
 	return render(request, 'timely/index.html', variables)
 
 
+@logged_in
+def change_password(request):
+	if request.method == 'POST':
+		form = PasswordChangeForm(request.user, request.POST)
+		if form.is_valid():
+			user = form.save()
+			update_session_auth_hash(request, user)
+			messages.success(request, 'Your password was successfully updated!')
+			return redirect('/')
+		else:
+			messages.error(request, 'Please correct the error below.')
+	else:
+		form = PasswordChangeForm(request.user)
+	
+	variables = {
+		'page_title': 'Timely - Logout',
+		'form': form
+	}
+	return render(request, 'timely/accounts/change_password.html', variables)
+
+
+@logged_in
+def signout(request):
+    logout(request)
+    return redirect('/accounts/login/')
+
+
 def signin(request):
 	form = LoginForm()
 	if request.method == 'POST':
@@ -35,27 +62,3 @@ def signin(request):
 		'form':form
 	}
 	return render(request, 'timely/accounts/login.html', variables)
-
-
-@logged_in
-def signout(request):
-    logout(request)
-    return redirect('/accounts/login/')
-
-
-@logged_in
-def change_password(request):
-    if request.method == 'POST':
-        form = PasswordChangeForm(request.user, request.POST)
-        if form.is_valid():
-            user = form.save()
-            update_session_auth_hash(request, user)  # Important!
-            messages.success(request, 'Your password was successfully updated!')
-            return redirect('/')
-        else:
-            messages.error(request, 'Please correct the error below.')
-    else:
-        form = PasswordChangeForm(request.user)
-    return render(request, 'timely/accounts/change_password.html', {
-        'form': form
-    })
