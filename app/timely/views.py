@@ -4,6 +4,7 @@ from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib import messages
 from .forms import LoginForm
 from .decorators import logged_in
+from .models import Timer
 
 
 @logged_in
@@ -12,6 +13,18 @@ def index(request):
 		'page_title': 'Timely - Home'
 	}
 	return render(request, 'timely/index.html', variables)
+
+
+@logged_in
+def timer_start(request):
+    # start a new timer
+    return redirect('/')
+
+
+@logged_in
+def timer_stop(request):
+    # stop curent timer
+    return redirect('/')
 
 
 @logged_in
