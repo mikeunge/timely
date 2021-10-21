@@ -5,3 +5,7 @@
 body {
 	font-family: 'Open Sans', sans-serif;
 }
+
+.dropdown:hover .dropdown-menu {
+  display: block;
+}

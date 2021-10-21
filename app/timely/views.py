@@ -11,31 +11,37 @@ from .models import Timer
 @logged_in
 def index(request):
     try:
-        ok = Timer.objects.get(user_id=request.user.id, is_running=True)
+        Timer.objects.get(user_id=request.user.id, is_running=True)
         timer_state = True
-        timer_link = 'timer/stop'
     except:
         timer_state = False
-        timer_link = 'timer/start'
     variables = {
         'page_title': 'Timely - Home',
         'timer_state': timer_state,
-        'timer_link': timer_link
     }
     return render(request, 'timely/index.html', variables)
 
 
 @logged_in
-def timer_start(request):
-    # start a new timer
+def timer_start(request, method=''):
     try:
         Timer.objects.get(user_id=request.user.id, is_running=True)
         redirect('/')
     except:
         pass
+
+    if method == 'work':
+        type='work'
+    elif method == 'break':
+        type='break'
+    else:
+        # if nothing matches, we redirect
+        # TODO: return an error message
+        redirect('/')
+
     timer = Timer(
         user_id=request.user.id,
-        type='wo',
+        type=type,
         time_total=0
     )
     timer.save()
@@ -44,7 +50,6 @@ def timer_start(request):
 
 @logged_in
 def timer_stop(request):
-    # stop curent timer
     try:
         timer = Timer.objects.get(user_id=request.user.id, is_running=True)
     except:
