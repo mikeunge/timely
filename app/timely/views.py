@@ -2,6 +2,7 @@ from django.shortcuts import  render, redirect
 from django.contrib.auth import login, authenticate, logout, update_session_auth_hash
 from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib import messages
+from datetime import datetime, date
 from .forms import LoginForm
 from .decorators import logged_in
 from .models import Timer
@@ -9,21 +10,60 @@ from .models import Timer
 
 @logged_in
 def index(request):
-	variables = {
-		'page_title': 'Timely - Home'
-	}
-	return render(request, 'timely/index.html', variables)
+    try:
+        ok = Timer.objects.get(user_id=request.user.id, is_running=True)
+        timer_state = True
+        timer_link = 'timer/stop'
+    except:
+        timer_state = False
+        timer_link = 'timer/start'
+    variables = {
+        'page_title': 'Timely - Home',
+        'timer_state': timer_state,
+        'timer_link': timer_link
+    }
+    return render(request, 'timely/index.html', variables)
 
 
 @logged_in
 def timer_start(request):
     # start a new timer
+    try:
+        Timer.objects.get(user_id=request.user.id, is_running=True)
+        redirect('/')
+    except:
+        pass
+    timer = Timer(
+        user_id=request.user.id,
+        type='wo',
+        time_total=0
+    )
+    timer.save()
     return redirect('/')
 
 
 @logged_in
 def timer_stop(request):
     # stop curent timer
+    try:
+        timer = Timer.objects.get(user_id=request.user.id, is_running=True)
+    except:
+        redirect('/')
+    # Calculate the difference between start and end.
+    today = date.today()
+    timer_end = datetime.now().time()
+    start = datetime.combine(today, timer.start_time).replace(microsecond=0)
+    end = datetime.combine(today, timer_end).replace(microsecond=0)
+    diff = end - start
+    # Update the timer object.
+    Timer.objects.filter(
+        user_id=request.user.id,
+        is_running=True
+    ).update(
+        is_running=False,
+        time_total=diff,
+        stop_time=timer_end
+    )
     return redirect('/')
 
 

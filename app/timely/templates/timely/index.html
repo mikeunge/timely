@@ -3,5 +3,16 @@
 {% block content %}
 
 {% include 'timely/header.html' %}
+{% if timer_state %}
+<h2>Timer is running</h2>
+<a href="{{ timer_link }}" class="bg-purple-500 hover:bg-purple-700 text-white text-center py-2 px-8 rounded">
+    Stop
+</a>
+{% else %}
+<h2>Timer is not running</h2>
+<a href="{{ timer_link }}" class="bg-purple-500 hover:bg-purple-700 text-white text-center py-2 px-8 rounded">
+    Start
+</a>
+{% endif %}
 
 {% endblock %}

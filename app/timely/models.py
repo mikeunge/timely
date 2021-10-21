@@ -15,10 +15,10 @@ class Timer(models.Model):
         blank=False
     )
     is_running = models.BooleanField(default=True)
-    time_total = models.DecimalField(max_digits=5, decimal_places=2, blank=True)
+    time_total = models.CharField(default="", max_length=16)
     start_time = models.TimeField(auto_now_add=True, blank=False)
-    stop_time = models.TimeField(auto_now_add=False, blank=True)
+    stop_time = models.TimeField(auto_now_add=True, blank=False)
 
     def __str__(self):
-        return self.date
+        return str(self.date)
 
