@@ -25,8 +25,9 @@
 		<link rel="stylesheet" href="{% static 'css/tailwind.css' %}" />
 	</head>
 	<body>
+        {{ request.user.id|json_script:"user_id" }}
+		<script src="{% static 'js/main.js' %}"></script>
 		{% block content %}
 		{% endblock %}
-		<script src="{% static 'js/main.js' %}"></script>
 	</body>
 </html>

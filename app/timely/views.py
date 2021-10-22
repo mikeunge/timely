@@ -11,7 +11,7 @@ from .models import Timer
 @logged_in
 def index(request):
     try:
-        Timer.objects.get(user_id=request.user.id, is_running=True)
+        timer = Timer.objects.get(user_id=request.user.id, is_running=True)
         timer_state = True
     except:
         timer_state = False
@@ -25,23 +25,19 @@ def index(request):
 @logged_in
 def timer_start(request, method=''):
     try:
+        # TODO: return a message that a timer is already running
         Timer.objects.get(user_id=request.user.id, is_running=True)
         redirect('/')
     except:
         pass
 
-    if method == 'work':
-        type='work'
-    elif method == 'break':
-        type='break'
-    else:
-        # if nothing matches, we redirect
+    if method != 'work' or method != 'break':
         # TODO: return an error message
         redirect('/')
 
     timer = Timer(
         user_id=request.user.id,
-        type=type,
+        type=method,
         time_total=0
     )
     timer.save()
