@@ -12,14 +12,18 @@ def settings_show_seconds(response=None, user=-1):
         return None
 
 # get_total_time :: calculate and return the total time
-def get_total_time(response=None, user=-1, json=True):
+def get_total_time(response=None, user=-1, json=True, db_call=False):
     try:
         timer = Timer.objects.get(user_id=user, is_running=True)
     except:
         if json:
             return JsonResponse({'message': 'No running timer'})
         return None
-    seconds = settings_show_seconds(user=user)
+
+    if not db_call:
+        seconds = settings_show_seconds(user=user)
+    else:
+        seconds = True
 
     # check if the stop time differs from the start time
     # if not, we take now from time, else, we take the timers stop time

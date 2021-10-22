@@ -23,4 +23,4 @@ class TimerAdmin(admin.ModelAdmin):
 @admin.register(UserSettings)
 class UserSettingsAdmin(admin.ModelAdmin):
     model = UserSettings
-    list_display = ("user",)
+    list_display = ("user","work_hours_per_week")

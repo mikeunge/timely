@@ -60,7 +60,7 @@ def timer_stop(request):
         return redirect('/')
     # Calculate the difference between start and end.
     timer_end = datetime.now().time()
-    total_time = get_total_time(user=request.user.id, json=False, seconds=True)
+    total_time = get_total_time(user=request.user.id, json=False, db_call=True)
     # Update the timer object.
     Timer.objects.filter(
         user_id=request.user.id,

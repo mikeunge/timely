@@ -31,6 +31,7 @@ class Timer(models.Model):
 
 class UserSettings(models.Model):
     user_id = models.IntegerField(blank=False, primary_key=True)
+    work_hours_per_week = models.DecimalField(blank=False, default=40, max_digits=4, decimal_places=2)
     timer_seconds = models.BooleanField(default=False)
 
     class Meta:
