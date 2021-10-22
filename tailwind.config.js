@@ -5,8 +5,13 @@ module.exports = {
   theme: {
     extend: {},
   },
-  variants: {
-    extend: {},
+	variants: {
+		extend: {
+			backgroundColor: ['checked'],
+			borderColor: ['checked'],
+		} 
   },
-  plugins: [],
+  plugins: [
+		require('@tailwindcss/forms'),
+	],
 }
