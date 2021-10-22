@@ -1,0 +1,19 @@
+<div class="flex items-center justify-between p-4 px-6 w-full border-b-2">
+	<div class="pl-2 text-2xl">
+		Hallo, <span class="text-purple-500">{{ user.get_username }}</span>
+	</div>
+	<a href="/">
+		{% load static %}
+		<img class="flex justify-center fill-current text-purple-500" src="{% static 'images/logo.svg' %}" alt="Anmelden" height="24" width="28" />
+	</a>
+	<div class="text-gray-700">
+		{% if user.is_superuser %}
+			<a class="hover:text-purple-500" href="{% url 'admin' %">Admin</a> |
+		{% endif %}
+		{% if request.path == '/accounts/settings/' %}
+			<a class="hover:text-purple-500" href="{% url 'index' %}">Startseite</a> |
+		{% endif %}
+        <a class="hover:text-purple-500" href="{% url 'settings' %}">Einstellungen</a> |
+		<a class="hover:text-purple-500" href="{% url 'logout' %}">Abmelden</a>
+	</div>
+</div>

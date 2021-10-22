@@ -11,3 +11,4 @@ pip-log.txt
 pip-delete-this-directory.txt
 *.log
 *.pot
+app/timely/static/css/tailwind.css

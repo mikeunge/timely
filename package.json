@@ -4,7 +4,8 @@
   "description": "Time management made easy.",
   "main": "",
   "scripts": {
-    "build": "./scripts/bundle.sh"
+    "build": "NODE_ENV=production TAILWIND_MODE=build postcss app/timely/static/css/styles.css -o app/timely/static/css/tailwind.css",
+    "dev": "NODE_ENV=development TAILWIND_MODE=build postcss app/timely/static/css/styles.css -o app/timely/static/css/tailwind.css -w"
   },
   "repository": {
     "type": "git",
@@ -17,7 +18,8 @@
   },
   "homepage": "https://github.com/mikeunge/timely#readme",
   "dependencies": {
-    "autoprefixer": "^10.3.7"
+    "autoprefixer": "^10.3.7",
+    "postcss-cli": "^9.0.1"
   },
   "devDependencies": {
     "@tailwindcss/jit": "^0.1.18",

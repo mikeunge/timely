@@ -1,0 +1,40 @@
+{% if messages %}
+	{% for message in messages %}
+		{% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}
+            <div id="error_msg" class="flex justify-between bg-red-100 border-l-4 border-red-500 text-red-700 p-4" role="alert">
+                <p>{{ message }}</p>
+                <div class="cursor-pointer">
+                    <i class="material-icons" onclick="close_msg('error_msg')">close</i>
+                </div>
+            </div>
+        {% elif message.level == DEFAULT_MESSAGE_LEVELS.WARNING %}
+            <div id="warning_msg" class="flex justify-between bg-yellow-200 border-l-4 border-yellow-500 text-yellow-700 p-4" role="alert">
+                <p>{{ message }}</p>
+                <div class="cursor-pointer">
+                    <i class="material-icons" onclick="close_msg('warning_msg')">close</i>
+                </div>
+            </div>
+        {% elif message.level == DEFAULT_MESSAGE_LEVELS.INFO %}
+            <div id="default_msg" class="flex justify-between bg-purple-200 border-l-4 border-purple-500 text-purple-700 p-4" role="alert">
+                <p>{{ message }}</p>
+                <div class="cursor-pointer">
+                    <i class="material-icons" onclick="close_msg('default_msg')">close</i>
+                </div>
+            </div>
+        {% elif message.level == DEFAULT_MESSAGE_LEVELS.SUCCESS %}
+            <div id="success_msg" class="flex justify-between bg-green-200 border-l-4 border-green-500 text-green-700 p-4" role="alert">
+                <p>{{ message }}</p>
+                <div class="cursor-pointer">
+                    <i class="material-icons" onclick="close_msg('success_msg')">close</i>
+                </div>
+            </div>
+        {% else %}
+            <div id="info_msg" class="flex justify-between bg-blue-200 border-l-4 border-blue-500 text-blue-700 p-4" role="alert">
+                <p>{{ message }}</p>
+                <div class="cursor-pointer">
+                    <i class="material-icons" onclick="close_msg('info_msg')">close</i>
+                </div>
+            </div>
+		{% endif %}
+	{% endfor %}
+{% endif %}

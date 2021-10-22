@@ -22,9 +22,9 @@ services:
       DB_USER: ${POSTGRES_USER}
       DB_PASSWORD: ${POSTGRES_PASSWORD}
       SECRET_KEY: ${SECRET_KEY}
-    volumes:
-      - ./app:/app
     ports:
       - "8000:8000"
     depends_on:
       - db
+    volumes:
+      - ./app:/app
