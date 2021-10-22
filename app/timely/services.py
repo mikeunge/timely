@@ -3,13 +3,13 @@ from django.http import JsonResponse
 from .models import Timer
 
 
-def get_total_time(response, user=-1, json=True):
+def get_total_time(response=None, user=-1, json=True):
     try:
         timer = Timer.objects.get(user_id=user, is_running=True)
     except:
         if json:
             return JsonResponse({'message': 'No running timer'})
-        return Null
+        return None
     # Calculate the difference between start and end.
     today = date.today()
     timer_end = datetime.now().time()
@@ -28,11 +28,7 @@ def get_total_time(response, user=-1, json=True):
     if len(str(hours)) < 2:
         hours = f'0{str(hours)}'
     minutes = str(diff).split(':')[1]
-    time = f'{hours}:{minutes}' 
+    time = f'{hours}:{minutes}'
     if json:
         return JsonResponse({'message': f'{time}'})
     return time
-
-
-def update_total_time(user_id):
-    pass

@@ -6,6 +6,7 @@ TRACK_TYPES = [
     ('break', 'Pause'),
 ]
 
+
 class Timer(models.Model):
     user_id = models.IntegerField(blank=False)
     date = models.DateField(auto_now_add=True, blank=False)
