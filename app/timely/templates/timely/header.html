@@ -8,7 +8,10 @@
 	</a>
 	<div class="text-gray-700">
 		{% if user.is_superuser %}
-			<a class="hover:text-purple-500" href="/admin/">Admin</a> |
+			<a class="hover:text-purple-500" href="{% url 'admin' %">Admin</a> |
+		{% endif %}
+		{% if request.path == '/accounts/settings/' %}
+			<a class="hover:text-purple-500" href="{% url 'index' %}">Startseite</a> |
 		{% endif %}
         <a class="hover:text-purple-500" href="{% url 'settings' %}">Einstellungen</a> |
 		<a class="hover:text-purple-500" href="{% url 'logout' %}">Abmelden</a>

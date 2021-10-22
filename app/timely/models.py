@@ -30,7 +30,7 @@ class Timer(models.Model):
 
 
 class UserSettings(models.Model):
-    user_id = models.IntegerField(blank=False)
+    user_id = models.IntegerField(blank=False, primary_key=True)
     timer_seconds = models.BooleanField(default=False)
 
     class Meta:

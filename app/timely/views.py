@@ -8,15 +8,18 @@ from datetime import datetime, date
 from .forms import LoginForm
 from .decorators import logged_in
 from .models import Timer
-from .services import get_total_time, get_username
+from .services import get_total_time
 
 
 @logged_in
 def index(request):
     try:
-        timer = Timer.objects.get(user_id=request.user.id, is_running=True)
-        timer_state = True
-    except:
+        if Timer.objects.get(user_id=request.user.id, is_running=True):
+            timer_state = True
+    except MultipleObjectsReturned:
+        messages.error(request, 'You have currently more than one timer running. Please inform your administrator about this incident!')
+        timer_state = False
+    except ObjectDoesNotExist:
         timer_state = False
     variables = {
         'page_title': 'Timely - Home',
@@ -57,7 +60,7 @@ def timer_stop(request):
         return redirect('/')
     # Calculate the difference between start and end.
     timer_end = datetime.now().time()
-    total_time = get_total_time(user=request.user.id, json=False)
+    total_time = get_total_time(user=request.user.id, json=False, seconds=True)
     # Update the timer object.
     Timer.objects.filter(
         user_id=request.user.id,
