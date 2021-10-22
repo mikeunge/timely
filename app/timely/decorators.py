@@ -12,3 +12,8 @@ def logged_in(view):
 			return view(request, *args, **kwargs)
 		return redirect('/accounts/login/')
 	return wrapper
+
+
+def is_moderator(user):
+    return user.groups.filter(name='Member').exists()
+
