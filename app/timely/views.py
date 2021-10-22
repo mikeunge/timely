@@ -31,11 +31,11 @@ def timer_start(request, method=''):
         if Timer.objects.get(user_id=request.user.id, is_running=True):
             raise MultipleObjectsReturned
     except MultipleObjectsReturned:
-        messages.error(
-            request, "Sorry, but we cannot create a new timer when you have one already running")
+        messages.info(request, 'You already have a running timer.')
         return redirect('/')
     except ObjectDoesNotExist:
         if method != 'work' and method != 'break':
+            messages.error(request, f'Timer method ({method}) is not allowed!')
             return redirect('/')
 
     timer = Timer(
@@ -50,8 +50,9 @@ def timer_start(request, method=''):
 @logged_in
 def timer_stop(request):
     try:
-        timer = Timer.objects.get(user_id=request.user.id, is_running=True)
-    except:
+        Timer.objects.get(user_id=request.user.id, is_running=True)
+    except ObjectDoesNotExist:
+        messages.info(request, 'You need a timer before you can stop one.')
         return redirect('/')
     # Calculate the difference between start and end.
     timer_end = datetime.now().time()

@@ -1,22 +1,24 @@
-{% extends 'timely/base.html' %} {% block content %} {% include 'timely/header.html' %}
+{% extends 'timely/base.html' %}
+{% block content %}
+
+{% include 'timely/header.html' %}
+{% include 'timely/messages.html' %}
+
 <div class="flex items-center justify-end p-4 px-4">
   {% if timer_state %}
   <div class="text-2xl text-black px-4" id="current_time">00:00</div>
   <a
     href="{% url 'timer_stop' %}"
-    class="bg-purple-500 hover:bg-purple-700 text-white text-center py-2 px-8 rounded"
-  >
+    class="bg-purple-500 hover:bg-purple-700 text-white font-semibold text-center py-2 px-8 rounded">
     Stop
   </a>
   {% else %}
   <div class="dropdown inline-block relative">
     <button
-      class="bg-purple-500 text-white font-semibold py-2 px-6 rounded inline-flex items-center"
+      class="bg-purple-500 text-white font-semibold py-2 px-4 rounded inline-flex items-center"
     >
       <span class="mr-1">Start</span>
-      <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
-        <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
-      </svg>
+      <i class="material-icons">expand_more</i>
     </button>
     <ul class="dropdown-menu absolute hidden text-gray-700 pt-1">
       <li class="">

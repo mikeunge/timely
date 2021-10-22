@@ -11,7 +11,14 @@ const get_time = async () => {
         let data = await response.json();
         return data;
     } else {
-        console.error(`An error occured\nStatus: ${response.status}`);
+        console.error(`An error occured\nServer status: ${response.status}`);
         return {'message': '00:00'}
     }
+}
+
+
+// function to close server messages
+function close_msg(elem) {
+    const msg = document.getElementById(elem);
+    (msg) ? msg.classList.add('hidden') : console.log(`element ${elem} not found`);
 }
