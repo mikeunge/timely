@@ -620,17 +620,11 @@ video {
 .hidden {
 	display: none;
 }
-.h-4 {
-	height: 1rem;
-}
 .h-10 {
 	height: 2.5rem;
 }
 .w-full {
 	width: 100%;
-}
-.w-4 {
-	width: 1rem;
 }
 .max-w-sm {
 	max-width: 24rem;
@@ -686,17 +680,17 @@ video {
 	--tw-border-opacity: 1;
 	border-color: rgba(245, 158, 11, var(--tw-border-opacity));
 }
-.border-blue-500 {
+.border-purple-500 {
 	--tw-border-opacity: 1;
-	border-color: rgba(59, 130, 246, var(--tw-border-opacity));
+	border-color: rgba(139, 92, 246, var(--tw-border-opacity));
 }
 .border-green-500 {
 	--tw-border-opacity: 1;
 	border-color: rgba(16, 185, 129, var(--tw-border-opacity));
 }
-.border-purple-500 {
+.border-blue-500 {
 	--tw-border-opacity: 1;
-	border-color: rgba(139, 92, 246, var(--tw-border-opacity));
+	border-color: rgba(59, 130, 246, var(--tw-border-opacity));
 }
 .border-gray-200 {
 	--tw-border-opacity: 1;
@@ -718,17 +712,17 @@ video {
 	--tw-bg-opacity: 1;
 	background-color: rgba(253, 230, 138, var(--tw-bg-opacity));
 }
-.bg-blue-200 {
+.bg-purple-200 {
 	--tw-bg-opacity: 1;
-	background-color: rgba(191, 219, 254, var(--tw-bg-opacity));
+	background-color: rgba(221, 214, 254, var(--tw-bg-opacity));
 }
 .bg-green-200 {
 	--tw-bg-opacity: 1;
 	background-color: rgba(167, 243, 208, var(--tw-bg-opacity));
 }
-.bg-purple-200 {
+.bg-blue-200 {
 	--tw-bg-opacity: 1;
-	background-color: rgba(221, 214, 254, var(--tw-bg-opacity));
+	background-color: rgba(191, 219, 254, var(--tw-bg-opacity));
 }
 .fill-current {
 	fill: currentColor;
@@ -802,17 +796,17 @@ video {
 	--tw-text-opacity: 1;
 	color: rgba(180, 83, 9, var(--tw-text-opacity));
 }
-.text-blue-700 {
+.text-purple-700 {
 	--tw-text-opacity: 1;
-	color: rgba(29, 78, 216, var(--tw-text-opacity));
+	color: rgba(109, 40, 217, var(--tw-text-opacity));
 }
 .text-green-700 {
 	--tw-text-opacity: 1;
 	color: rgba(4, 120, 87, var(--tw-text-opacity));
 }
-.text-purple-700 {
+.text-blue-700 {
 	--tw-text-opacity: 1;
-	color: rgba(109, 40, 217, var(--tw-text-opacity));
+	color: rgba(29, 78, 216, var(--tw-text-opacity));
 }
 .shadow {
 	--tw-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);

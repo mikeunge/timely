@@ -8,7 +8,7 @@ from datetime import datetime, date
 from .forms import LoginForm
 from .decorators import logged_in
 from .models import Timer
-from .services import get_total_time
+from .services import get_total_time, get_username
 
 
 @logged_in
@@ -24,6 +24,7 @@ def index(request):
     }
     return render(request, 'timely/index.html', variables)
 
+# --- TIMER ---
 
 @logged_in
 def timer_start(request, method=''):
@@ -67,6 +68,16 @@ def timer_stop(request):
         stop_time=timer_end
     )
     return redirect('/')
+
+
+# --- ACCOUNTS ---
+
+@logged_in
+def settings(request):
+    variables = {
+        'page_title': 'Timely - Setting'
+    }
+    return render(request, 'timely/accounts/settings.html', variables)
 
 
 @logged_in

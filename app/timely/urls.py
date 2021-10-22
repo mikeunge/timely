@@ -9,6 +9,7 @@ urlpatterns = [
     path('accounts/login/', views.signin, name='login'),
     path('accounts/logout/', views.signout, name='logout'),
     path('accounts/change-password/', views.change_password, name='change_password'),
+    path('accounts/settings/', views.settings, name='settings'),
     # timer routes
     path('timer/start/<str:method>/', views.timer_start, name='timer_start'),
     path('timer/stop/', views.timer_stop, name='timer_stop'),

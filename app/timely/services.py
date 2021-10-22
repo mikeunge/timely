@@ -1,8 +1,10 @@
 from datetime import datetime, date
 from django.http import JsonResponse
+from django.contrib.auth.models import User
 from .models import Timer
 
 
+# get_total_time :: calculate and return the total time
 def get_total_time(response=None, user=-1, json=True):
     try:
         timer = Timer.objects.get(user_id=user, is_running=True)
@@ -10,9 +12,16 @@ def get_total_time(response=None, user=-1, json=True):
         if json:
             return JsonResponse({'message': 'No running timer'})
         return None
-    # Calculate the difference between start and end.
+
+# TODO: this breaks the counter function ...
+    # check if the stop time differs from the start time
+    # if not, we take now from time, else, we take the timers stop time
+    if timer.stop_time == timer.start_time:
+        timer_end = datetime.now().time()
+    else:
+        timer_end = timer.stop_time
     today = date.today()
-    timer_end = datetime.now().time()
+    # Calculate the difference between start and end.
     start = datetime.combine(today, timer.start_time).replace(microsecond=0)
     end = datetime.combine(today, timer_end).replace(microsecond=0)
     diff = end - start
@@ -32,3 +41,8 @@ def get_total_time(response=None, user=-1, json=True):
     if json:
         return JsonResponse({'message': f'{time}'})
     return time
+
+
+# get_username :: get the username according to the users id
+def get_username(user_id):
+    return User.objects.get(pk=user_id)

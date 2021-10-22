@@ -10,7 +10,7 @@
 		{% if user.is_superuser %}
 			<a class="hover:text-purple-500" href="/admin/">Admin</a> |
 		{% endif %}
-		<a class="hover:text-purple-500" href="">Einstellungen</a> |
+        <a class="hover:text-purple-500" href="{% url 'settings' %}">Einstellungen</a> |
 		<a class="hover:text-purple-500" href="{% url 'logout' %}">Abmelden</a>
 	</div>
 </div>
