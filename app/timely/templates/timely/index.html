@@ -44,24 +44,18 @@
 
 <script>
   const current_time = document.getElementById('current_time')
-	let counter = 10000;
-	const start = () => {
-    get_time().then((data) => {
-			if (data.message.split(':').length === 3) {
-				counter = 1000;
-			}
-      current_time.innerHTML = data.message;
-    });
-	}
   const timer = () => {
+		let counter = 1000;
     get_time().then((data) => {
+			if (data.message.split(':').length !== 3) {
+				counter = 15000;
+			}
       current_time.innerHTML = data.message;
 			setTimeout(timer, counter);
     });
   }
   if (current_time) {
-    start();
-    setTimeout(timer, counter);
+		timer();
   };
 </script>
 
