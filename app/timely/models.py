@@ -8,7 +8,8 @@ TRACK_TYPES = [
 
 class Timer(models.Model):
     user_id = models.IntegerField(blank=False)
-    date = models.DateField(auto_now_add=True, blank=False)
+    start_date = models.DateField(auto_now_add=True, blank=False)
+    end_date = models.DateField(auto_now_add=True, blank=False)
     type = models.CharField(
         max_length=10,
         choices=TRACK_TYPES,

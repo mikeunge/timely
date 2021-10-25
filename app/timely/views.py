@@ -10,7 +10,6 @@ from .decorators import logged_in
 from .models import Timer
 from .services import get_total_time
 
-
 @logged_in
 def index(request):
     try:

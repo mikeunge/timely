@@ -3,5 +3,6 @@ from django.contrib.auth import views as auth_views
 from . import views
 
 urlpatterns = [
-    path('', views.index, name='index'),
+    # the app/urls send the request to this router if stats/* is prefixed
+    path('', views.stats_base, name='stats_base'),
 ]

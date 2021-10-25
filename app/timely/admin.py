@@ -6,7 +6,7 @@ from .models import Timer, UserSettings
 @admin.register(Timer)
 class TimerAdmin(admin.ModelAdmin):
     model = Timer
-    list_display = ("user","type","start_time","stop_time","time_total","is_running")
+    list_display = ("user","type","start_time","start_date","stop_time","end_date","time_total","is_running")
 
     def make_active(modeladmin, request, queryset):
         queryset.update(is_running = 1)

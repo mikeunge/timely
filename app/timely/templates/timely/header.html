@@ -8,9 +8,9 @@
 	</a>
 	<div class="text-gray-700">
 		{% if user.is_superuser %}
-			<a class="hover:text-purple-500" href="{% url 'admin' %">Admin</a> |
+            <a class="hover:text-purple-500" href="/admin/">Admin</a> |
 		{% endif %}
-		{% if request.path == '/accounts/settings/' %}
+		{% if request.path == '/accounts/settings/' or request.path == '/stats/' %}
 			<a class="hover:text-purple-500" href="{% url 'index' %}">Startseite</a> |
 		{% endif %}
         <a class="hover:text-purple-500" href="{% url 'settings' %}">Einstellungen</a> |
