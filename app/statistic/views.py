@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import redirect
 
-def stats_base(request):
-    return render(request, 'statistic/index.html')
+def stats_index(request):
+    return redirect('/')

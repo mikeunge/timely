@@ -11,6 +11,18 @@ def settings_show_seconds(response=None, user=-1):
     except:
         return None
 
+
+# get the current time and generate a greating based on the time
+def get_greeting(response=None):
+    hour = int(str(datetime.now().time().replace(microsecond=0)).split(':')[0])
+    if hour > 6 and hour < 11:
+        return 'Guten Morgen'
+    elif hour > 18 and hour < 22:
+        return 'Guten Abend'
+    else:
+        return 'Hallo'
+
+
 # get_total_time :: calculate and return the total time
 def get_total_time(response=None, user=-1, json=True, db_call=False):
     try:

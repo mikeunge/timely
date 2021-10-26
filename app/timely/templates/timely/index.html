@@ -1,62 +1,51 @@
 {% extends 'timely/base.html' %}
 {% block content %}
 
-{% include 'timely/header.html' %}
-{% include 'timely/messages.html' %}
+<div class="">
+    <div class="flex items-center justify-end p-4 px-4">
+        {% if timer_state %}
+            <div class="px-2">
+                <div class="rounded shadow-md bg-white text-2xl text-black px-4 py-1" id="current_time">00:00</div>
+            </div>
+            <a href="{% url 'timer_stop' %}" class="bg-purple-500 hover:bg-purple-600 text-white font-semibold text-center py-2 px-8 rounded shadow-md">Stop</a>
+        {% else %}
+            <div class="dropdown inline-block relative">
+                <button class="bg-purple-500 hover:bg-purple-600 text-white font-semibold py-2 px-4 rounded inline-flex items-center shadow-md">
+                    <span class="mr-1">Start</span>
+                    <i class="material-icons">expand_more</i>
+                </button>
+                <ul class="dropdown-menu absolute hidden text-gray-700 pt-1">
+                    <li class="">
+                        {% url 'timer_start' 'work' as start_work %}
+                        <a class="rounded-t bg-gray-200 hover:bg-gray-300 py-2 px-8 block whitespace-no-wrap" href="{{ start_work }}">Arbeit</a>
+                    </li>
+                    <li class="">
+                        {% url 'timer_start' 'break' as start_break %}
+                        <a class="rounded-b bg-gray-200 hover:bg-gray-300 py-2 px-8 block whitespace-no-wrap" href="{{ start_break }}">Pause</a>
+                    </li>
+                </ul>
+            </div>
+        {% endif %}
+    </div>
 
-<div class="flex items-center justify-end p-4 px-4">
-  {% if timer_state %}
-		<div class="text-2xl text-black px-4" id="current_time">00:00</div>
-		<a
-			href="{% url 'timer_stop' %}"
-			class="bg-purple-500 hover:bg-purple-700 text-white font-semibold text-center py-2 px-8 rounded">
-			Stop
-		</a>
-  {% else %}
-  <div class="dropdown inline-block relative">
-    <button
-      class="bg-purple-500 hover:bg-purple-700 text-white font-semibold py-2 px-4 rounded inline-flex items-center"
-    >
-      <span class="mr-1">Start</span>
-      <i class="material-icons">expand_more</i>
-    </button>
-    <ul class="dropdown-menu absolute hidden text-gray-700 pt-1">
-      <li class="">
-        {% url 'timer_start' 'work' as start_work %}
-        <a
-          class="rounded-t bg-gray-200 hover:bg-gray-400 py-2 px-8 block whitespace-no-wrap"
-          href="{{ start_work }}"
-          >Arbeit</a
-        >
-      </li>
-      <li class="">
-        {% url 'timer_start' 'break' as start_break %}
-        <a
-          class="rounded-b bg-gray-200 hover:bg-gray-400 py-2 px-8 block whitespace-no-wrap"
-          href="{{ start_break }}"
-          >Pause</a
-        >
-      </li>
-    </ul>
-  </div>
-  {% endif %}
+    {% include 'statistic/dashboard.html' %}
 </div>
 
 <script>
-  const current_time = document.getElementById('current_time')
-  const timer = () => {
+    const current_time = document.getElementById('current_time')
+    const timer = () => {
 		let counter = 1000;
-    get_time().then((data) => {
+        get_time().then((data) => {
 			if (data.message.split(':').length !== 3) {
 				counter = 15000;
 			}
-      current_time.innerHTML = data.message;
-			setTimeout(timer, counter);
-    });
-  }
-  if (current_time) {
-		timer();
-  };
+        current_time.innerHTML = data.message;
+		setTimeout(timer, counter);
+        });
+    }
+    if (current_time) {
+	    timer();
+    };
 </script>
 
 {% endblock %}

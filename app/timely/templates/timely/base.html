@@ -24,9 +24,11 @@
 		<link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300&display=swap" rel="stylesheet"> 
 		<link rel="stylesheet" href="{% static 'css/tailwind.css' %}" />
 	</head>
-	<body>
+	<body class="bg-gray-100">
         {{ request.user.id|json_script:"user_id" }}
 		<script src="{% static 'js/main.js' %}"></script>
+        {% include 'timely/navbar.html' %}
+        {% include 'timely/messages.html' %}
 		{% block content %}
 		{% endblock %}
 	</body>

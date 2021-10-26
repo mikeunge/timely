@@ -8,7 +8,8 @@ from datetime import datetime, date
 from .forms import LoginForm
 from .decorators import logged_in
 from .models import Timer
-from .services import get_total_time
+from .services import get_total_time, get_greeting
+
 
 @logged_in
 def index(request):
@@ -22,6 +23,7 @@ def index(request):
         timer_state = False
     variables = {
         'page_title': 'Timely - Home',
+        'welcome_msg': get_greeting(),
         'timer_state': timer_state,
     }
     return render(request, 'timely/index.html', variables)

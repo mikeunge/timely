@@ -1,0 +1,37 @@
+{% if user.is_authenticated %}
+    <div class="flex flex-row items-center justify-between p-4 px-6 w-full border-b-2 bg-white z-50">
+        <div class="flex flex-row">
+            <a href="{% url 'index' %}">
+                {% load static %}
+                <img class="flex justify-center" src="{% static 'images/logo.svg' %}" alt="Anmelden" height="24" width="28" />
+            </a>
+            <h1 class="pl-4 text-2xl">
+                {{ welcome_msg|default:'Hallo' }}, <span class="text-purple-500">{{ request.user.first_name }}</span>
+            </h1>
+        </div>
+        <div class="text-gray-700">
+            {% if request.path != '/' %}
+                <a class="px-2 hover:text-purple-500" href="{% url 'index' %}">Startseite</a>
+            {% endif %}
+            <span class="px-2 invisible md:visible">
+                {% if user.is_superuser %}
+                    <a class="hover:text-purple-500" href="/admin/">Admin</a> 
+                {% endif %}
+            </span>
+            <div class="dropdown inline-block relative z-50">
+                <button class="hover:bg-gray-200 py-2 px-2 rounded inline-flex items-center">
+                    <span class="mr-1">{{ request.user.first_name }} {{ request.user.last_name }}</span>
+                    <i class="material-icons">expand_more</i>
+                </button>
+                <ul class="dropdown-menu absolute hidden text-gray-700 pt-1">
+                    <li class="">
+                        <a class="rounded-t bg-gray-200 hover:bg-gray-300 py-2 px-4 block whitespace-no-wrap" href="{% url 'settings' %}">Einstellungen</a>
+                    </li>
+                    <li class="">
+                        <a class="rounded-b bg-gray-200 hover:bg-gray-300 py-2 px-4 block whitespace-no-wrap" href="{% url 'logout' %}">Abmelden</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+{% endif %}
