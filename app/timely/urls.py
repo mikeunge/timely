@@ -14,5 +14,6 @@ urlpatterns = [
     path('timer/start/<str:method>/', views.timer_start, name='timer_start'),
     path('timer/stop/', views.timer_stop, name='timer_stop'),
     # api routes below
-    path('api/timer/<int:user>/', services.get_total_time, name='get_total_timer'),
+    path('api/services/timer/<int:user>/', services.get_total_time, name='get_total_timer'),
+    path('api/services/greeting/', services.get_greeting, name='get_greeting'),
 ]

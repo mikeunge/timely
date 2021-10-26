@@ -6,7 +6,7 @@
                 <img class="flex justify-center" src="{% static 'images/logo.svg' %}" alt="Anmelden" height="24" width="28" />
             </a>
             <h1 class="pl-4 text-2xl">
-                {{ welcome_msg|default:'Hallo' }}, <span class="text-purple-500">{{ request.user.first_name }}</span>
+                <span id="greeting">Hallo</span>, <span class="text-purple-500">{{ request.user.first_name }}</span>
             </h1>
         </div>
         <div class="text-gray-700">
@@ -25,7 +25,10 @@
                 </button>
                 <ul class="dropdown-menu absolute hidden text-gray-700 pt-1">
                     <li class="">
-                        <a class="rounded-t bg-gray-200 hover:bg-gray-300 py-2 px-4 block whitespace-no-wrap" href="{% url 'settings' %}">Einstellungen</a>
+                        <a class="rounded-t bg-gray-200 hover:bg-gray-300 py-2 px-4 block whitespace-no-wrap" href="{% url 'application' %}">Anträge</a>
+                    </li>
+                    <li class="">
+                        <a class="bg-gray-200 hover:bg-gray-300 py-2 px-4 block whitespace-no-wrap" href="{% url 'settings' %}">Einstellungen</a>
                     </li>
                     <li class="">
                         <a class="rounded-b bg-gray-200 hover:bg-gray-300 py-2 px-4 block whitespace-no-wrap" href="{% url 'logout' %}">Abmelden</a>
@@ -34,4 +37,19 @@
             </div>
         </div>
     </div>
+    <script>
+        const greeting = document.getElementById('greeting');
+        if (greeting) {
+            fetch('http://localhost:8000/api/services/greeting/', {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            })
+            .then(response => response.json())
+            .then((data) => {
+                greeting.innerHTML = data.message;
+            });
+        }
+    </script>
 {% endif %}

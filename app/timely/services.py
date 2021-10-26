@@ -16,11 +16,11 @@ def settings_show_seconds(response=None, user=-1):
 def get_greeting(response=None):
     hour = int(str(datetime.now().time().replace(microsecond=0)).split(':')[0])
     if hour > 6 and hour < 11:
-        return 'Guten Morgen'
-    elif hour > 18 and hour < 22:
-        return 'Guten Abend'
+        return JsonResponse({'message': 'Guten Morgen'})
+    elif hour > 18 and hour < 24:
+        return JsonResponse({'message': 'Guten Abend'})
     else:
-        return 'Hallo'
+        return JsonResponse({'message': 'Hallo'})
 
 
 # get_total_time :: calculate and return the total time

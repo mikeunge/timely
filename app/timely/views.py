@@ -8,7 +8,7 @@ from datetime import datetime, date
 from .forms import LoginForm
 from .decorators import logged_in
 from .models import Timer
-from .services import get_total_time, get_greeting
+from .services import get_total_time
 
 
 @logged_in
@@ -21,12 +21,19 @@ def index(request):
         timer_state = False
     except ObjectDoesNotExist:
         timer_state = False
+
     variables = {
         'page_title': 'Timely - Home',
-        'welcome_msg': get_greeting(),
         'timer_state': timer_state,
     }
+
+    # check if the user has worked more than 6 hours, if so, notify him to take a break.
+    time = get_total_time(user=request.user.id, json=False)
+    if time != None and int(time.split(':')[0]) >= 6:
+        messages.info(request, 'You should take a break, you have worked for 6+ hours straight.')
+
     return render(request, 'timely/index.html', variables)
+
 
 # --- TIMER ---
 

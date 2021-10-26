@@ -1,12 +1,12 @@
 from django.db import models
 from django.contrib.auth.models import User
 
-TRACK_TYPES = [
-    ('work', 'Arbeit'),
-    ('break', 'Pause'),
-]
-
 class Timer(models.Model):
+    TRACK_TYPES = [
+        ('work', 'Arbeit'),
+        ('break', 'Pause'),
+    ]
+
     user_id = models.IntegerField(blank=False)
     start_date = models.DateField(auto_now_add=True, blank=False)
     end_date = models.DateField(auto_now_add=True, blank=False)
