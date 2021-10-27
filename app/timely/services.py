@@ -42,25 +42,38 @@ def get_total_time(response=None, user=-1, json=True, db_call=False):
     start_time = timer.start_time.replace(microsecond=0)
     stop_time = timer.stop_time.replace(microsecond=0)
     today = date.today()
+    start_date=timer.start_date
+    end_date=timer.end_date
     if  stop_time == start_time:
         timer_end = datetime.now().time()
     else:
         timer_end = timer.stop_time
 
     # Calculate the difference between start and end.
-    start = datetime.combine(today, start_time)
-    end = datetime.combine(today, timer_end).replace(microsecond=0)
+    start = datetime.combine(start_date, start_time)
+    end = datetime.combine(end_date, timer_end).replace(microsecond=0)
     time = end - start
 
     # if the timer runs till the next day, the diff prefixes with "-1 day"
     # to overcome this, we simply split the string and take the second array item.
     timeSplit = str(time).split(', ')
     if len(timeSplit) > 1:
+        has_day = timeSplit[0].split(' ')[0]
         time = timeSplit[1]
 
     # get rid of the seconds
     timeArr = str(time).split(':')
     hours = timeArr[0]
+
+    # we check if we have an extra day, if so, we add the day(s) to the hours.
+    # this way we get an accurrate calculation if we work for 24+ hoursself.
+    #
+    # This should actually never happen, because legally you NEED a break after 6 hours but yeah, when someone forgets to stop the watch,
+    #  we get it and can report it later to an administrator.
+    if has_day:
+        has_day = 24*int(has_day)
+        hours = int(hours) + has_day
+
     if len(str(hours)) < 2:
         hours = f'0{str(hours)}'
     minutes = timeArr[1]
